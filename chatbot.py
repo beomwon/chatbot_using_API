@@ -2,7 +2,7 @@ import urllib3, json
 from konlpy.tag import Okt
 
 openApiURL = "http://aiopen.etri.re.kr:8000/MRCServlet"
-accessKey = "e16cd39e-c5ff-4a6b-831c-33a7fdaab904"
+accessKey = "your key"
 
 src = open('info.txt', 'r', encoding='utf-8').readlines()
 passage = ''.join(src)
