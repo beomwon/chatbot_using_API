@@ -1,0 +1,201 @@
+<!-- ./template/main.html -->
+<!doctype html>
+
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="Generator" content="EditPlus®">
+        <meta name="Author" content="">
+        <meta name="Keywords" content="">
+        <meta name="Description" content="">
+        <script src="https://kit.fontawesome.com/77ad8525ff.js" crossorigin="anonymous"></script>
+        <title>OE CHATBOT</title>
+    
+        <style type="text/css">
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+                
+            }
+
+            .top{
+                border-radius: 10px;
+                display: block;
+                margin: auto;
+                padding: 40px;
+                width: 1000px;
+                overflow: auto;
+                background-color: #e2db72;
+                margin-bottom: 20px;
+                margin-top: 20px;
+
+            }
+
+            .top .title{
+                text-align: center;
+                margin-bottom: 5px;
+            }
+            
+            .top .sub-title{
+                text-align: center;
+                margin-bottom: 5px;
+            }
+
+            a {
+                text-decoration: none;
+            }
+
+            div::-webkit-scrollbar {
+                display: none;
+            }
+
+            .bottom{
+                border-bottom-right-radius: 10px;
+                border-bottom-left-radius: 10px;
+
+                display: block;
+                margin: auto;
+                padding: 40px 0;
+                width: 500px;
+                background-color: #A8C0D6;;
+            }
+
+            .screen{
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                display: block;
+                margin: auto;
+                padding: 40px 0;
+                width: 500px;
+                height: 500px;
+                overflow: auto;
+                background-color: #A8C0D6;
+            }
+
+            .screen .chat {
+                display: flex;
+                align-items: flex-start;
+                padding: 20px;
+            }
+
+            .screen .chat .icon {
+                position: relative;
+                overflow: hidden;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background-color: #eee;
+            }
+
+            .screen .chat .icon i {
+                position: absolute;
+                top: 10px;
+                left: 50%;
+                font-size: 2.5rem;
+                color: #aaa;
+                transform: translateX(-50%);
+            }
+
+            .screen .chat .textbox {
+                position: relative;
+                display: inline-block;
+                max-width: calc(100% - 70px);
+                padding: 10px;
+                margin-top: 7px;
+                font-size: 13px;
+                border-radius: 10px;
+            }
+
+            .screen .chat .textbox::before {
+                position: absolute;
+                display: block;
+                top: 0;
+                font-size: 1.5rem;
+            }
+
+            .screen .ch1 .textbox {
+                margin-left: 20px;
+                background-color: #ffffff;
+            }
+
+            .screen .ch1 .textbox::before {
+                left: -15px;
+                content: "◀";
+                color: #ffffff;
+            }
+
+            .screen .ch2 {
+                flex-direction: row-reverse;
+            }
+
+            .screen .ch2 .textbox {
+                margin-right: 20px;
+                background-color: #F9EB54;
+            }
+
+            .screen .ch2 .textbox::before {
+                right: -15px;
+                content: "▶";
+                color: #F9EB54;
+            }
+
+            .input-box {
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                padding: 10px;
+                font-size: 16px;
+                width: 400px;
+                margin-left: 11px;
+            }
+
+            .submit-button {
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+
+            .submit-button:hover {
+                background-color: #3e8e41;
+            }
+
+        </style>
+    </head>
+ 
+    <body>
+        <div class="top">
+            <h3 class="title">챗봇 테스트</h3>
+            <h4 class="sub-title">챗봇답변리스트</h4>
+            {% for qna in qnas %}
+                <a>{{ loop.index }}. {{ qna }}</a><br>
+            {% endfor %}
+        </div>
+
+        <div class="screen" id="screen">
+            {% for row in rows %}
+            <div class="chat ch2">
+                <div class="icon"><i class="fa-solid fa-user"></i></div>
+                <div class="textbox">{{ row[0] }}</div>
+            </div>
+            <div class="chat ch1">
+                <div class="icon"><img src="{{ url_for('static', filename='image/beomcoder.jpg')}}" alt="TEST"></div>
+                <div class="textbox">{{ row[1] }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="bottom">
+            <form action="/question" method="POST">
+                <input type="text" class="input-box" name="context">
+                <input type="submit" class="submit-button"value="전송" /><br>
+            </form> 
+        </div>
+        <script>
+            var div = document.getElementById("screen");
+            div.scrollTop = div.scrollHeight;
+        </script>
+    </body>
+</html>
